@@ -1,30 +1,30 @@
 <h1>TODOS</h1>
 <div id="todoInput" class="centered">
-  <input class="centered-block" #newTodo placeholder="What needs to be done?" autofocus (keyup.enter) = "addTodo(newTodo.value); newTodo.value=''"/>
+    <input class="centered-block" #newTodo placeholder="What needs to be done?" autofocus
+           (keyup.enter)="addTodo(newTodo.value); newTodo.value=''"/>
 </div>
 
 <div id="list" *ngIf="todoList" class="centered">
-  <ul class="ul-todos">
-    <ng-container *ngFor="let todo of todoList">
-      <li class="centered-block li-nopad" *ngIf="matchFilter(todo)">
-        <div class="input-container" >
-          <input #isComplete type="checkbox" class="check" [checked]="todo.completed" (change)="completeToggle(todo.id, isComplete.checked)"/>
-          <label (dblclick) = "openInputForEdit($event)">{{todo.name}}</label>
-          <button class="delete-button" (click) = "removeTodo(todo.id)"> X </button>
-        </div>
-        <input #editableTodo autofocus class="hide" value="{{todo.name}}" (blur) = "editTodo($event, todo.id, editableTodo.value)" />
+    <ul class="ul-todos">
+        <ng-container *ngFor="let todo of todoList">
 
-    </li>
-  </ng-container>
-  </ul>
-  <div id="footer" class="footer" *ngIf="todoList && todoList.length>0">
-    <div id="counter" class="counter">{{activeCount}} items left
-    </div>
-    <ul class="ul-filter">
-      <li *ngFor="let filter of filterOptions">
-        <button (click)="currentFilter=filter">{{filter}}</button>
-      </li>
+
+            <app-single-todo
+                [singleTodo]="todo"
+                (onComplete)="completeToggle(todo)"
+                (onEdit)="editTodo(todo)"></app-single-todo>
+
+
+        </ng-container>
     </ul>
-    <button class="clear-completed" (click)="clearCompleted()" *ngIf="completedCount">Clear completed</button>
-  </div>
+    <div id="footer" class="footer" *ngIf="todoList && todoList.length>0">
+        <div id="counter" class="counter">{{activeCount}} items left
+        </div>
+        <ul class="ul-filter">
+            <li *ngFor="let filter of filterOptions">
+                <button (click)="currentFilter=filter">{{filter}}</button>
+            </li>
+        </ul>
+        <button class="clear-completed" (click)="clearCompleted()" *ngIf="completedCount">Clear completed</button>
+    </div>
 </div>
