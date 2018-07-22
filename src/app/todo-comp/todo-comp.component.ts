@@ -43,7 +43,7 @@ export class TodoCompComponent implements OnInit {
 
 }
   editTodo(event: any, id: number, newName: string): void {
-    // if(this.subscrEdit) {
+    // if(this.subscrEdit) {             it was an attempt to unsubscribe, but it didn't work correctly
     //   this.subscrEdit.unsubscribe();
     // }
     let curTarget = event.currentTarget;
@@ -92,11 +92,7 @@ clearCompleted():void {
        counter++;
      }
    })
-  return counter;
-  }
-
-  private getIndexInList(curElem: any): number {                     //DO NOT USE, unbelievable function for getting index of child element in parent's children array
-    return [].indexOf.call(curElem.parentElement.children, curElem);
+   return counter;
   }
 
   private findIndexById(id: number): number {

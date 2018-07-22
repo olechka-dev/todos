@@ -20,7 +20,7 @@ export class TodoService {
   constructor(private http: HttpClient) { }
 
   readonly baseUrl = "http://localhost:3000/";
-  readonly savePath = "todos/create";
+  readonly savePath = "todos/create";  // paths are defined inside the class. WHat's the right way to do it?
   readonly getPath = "todos/all";
   readonly updatePath = "todos/update";
   readonly deletePath = "todos/delete";
@@ -41,17 +41,12 @@ export class TodoService {
 getTodoList(): Observable <Todo[]> {
   let todoList = [];
   return this.http.get<Todo[]>(this.baseUrl+this.getPath).pipe(
-    catchError(this.handleError)              //why we don't pass param to handleError?
+    catchError(this.handleError)              //I copy/pasted handleError method :( and don't understand - why we call it without parameter?
   );
 }
 
 saveTodo (todo: BaseTodo):Observable<Todo> {
-// let todoId = new Date().getTime();
-// let todoToSave = Object.assign({id:todoId, completed:false}, todo);
-// localStorage.setItem(`${todoToSave.id}`, JSON.stringify(todoToSave)); //API http://localhost:3000/todos
-// return of(todoToSave);  //this is crap, it should return of(server response indicating fail/success)
-
-return this.http.post<Todo>(this.baseUrl+this.savePath, todo, httpOptions).pipe(
+  return this.http.post<Todo>(this.baseUrl+this.savePath, todo, httpOptions).pipe(
   catchError(this.handleError)
 );
 }
@@ -72,9 +67,9 @@ updateTodo(id:number, newName?:string, newCompleted?:boolean):Observable<number>
   if(newCompleted!==undefined) {
     Object.defineProperty(todo, "completed", {value:newCompleted, configurable: true, writable: true, enumerable: true});
   }
-console.log(todo);
+
   return this.http.put<{id: number}>(this.baseUrl+this.updatePath, todo, httpOptions).pipe(
-map(data => {return data.id}),
+    map(data => {return data.id}),
     catchError(this.handleError)
   );
 }
