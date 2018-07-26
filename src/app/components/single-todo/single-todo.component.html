@@ -7,7 +7,7 @@
 
 
         <label *ngIf="!isEdit" (dblclick)="isEdit = true">{{singleTodo.name}}</label>
-        <button class="delete-button" (click)="removeTodo(singleTodo.id)"> X</button>
+        <button class="delete-button" (click)="removeSingleTodo()"> X</button>
     </div>
 
     <input [type]="isEdit ? 'text' : 'hidden'" autofocus

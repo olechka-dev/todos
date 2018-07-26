@@ -1,0 +1,8 @@
+<div id="counter" class="counter">{{activeCount}} items left
+</div>
+<ul class="ul-filter">
+    <li *ngFor="let filter of filterOptions">
+        <button (click)="setFilter(filter)">{{filter}}</button>
+    </li>
+</ul>
+<button class="clear-completed" (click)="deleteCompleted()" *ngIf="completedCount">Clear completed</button>

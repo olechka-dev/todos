@@ -13,6 +13,7 @@ export class SingleTodoComponent implements OnInit {
 
     @Output('onComplete') onComplete = new EventEmitter();
     @Output('onEdit') onEdit = new EventEmitter();
+    @Output('onRemove') onRemove = new EventEmitter();
 
     public isEdit: false;
 
@@ -30,6 +31,11 @@ export class SingleTodoComponent implements OnInit {
     editName() {
         this.isEdit = false;
         this.onEdit.emit(this.singleTodo);
+    }
+
+    removeSingleTodo() {
+      this.onRemove.emit(this.singleTodo.id);
+      console.log(this.singleTodo.id);
     }
 
 }

@@ -3,7 +3,7 @@ import {BaseTodo, Todo} from './todo';
 import {of} from 'rxjs/internal/observable/of';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
 const httpOptions = {
@@ -16,7 +16,7 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TodoService {
-    todos;
+    todos: Todo[];
 
     constructor(private http: HttpClient) {
     }
@@ -39,6 +39,7 @@ export class TodoService {
     getTodoList(): Observable<Todo[]> {
         let todoList = [];
         return this.http.get<Todo[]>(this.baseUrl).pipe(
+          tap(todos => {this.todos = todos}),
             catchError(this.handleError)
         );
     }
@@ -51,8 +52,7 @@ export class TodoService {
 
     deleteTodo(id: number): Observable<{}> {
         let todo = {id: id};
-        let deleteOptions = Object.assign({body: todo}, httpOptions);
-        return this.http.delete<{}>(`${this.baseUrl}/${id}`, deleteOptions).pipe(
+        return this.http.delete<{}>(`${this.baseUrl}/${id}`, httpOptions).pipe(
             catchError(this.handleError)
         );
     };
