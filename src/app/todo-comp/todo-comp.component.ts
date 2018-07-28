@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BaseTodo, Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import { Observable } from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {of} from 'rxjs/internal/observable/of';
 
 
 @Component({
@@ -14,11 +16,11 @@ export class TodoCompComponent implements OnInit {
     todoList: Observable<Todo[]>; //problem: if I use async pipe I don't have access to data returned by observable inside the class.
                                   //That's why I still have to save the data in the array in server. Any other way to do it?
     readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
-    currentFilter = 'ALL';
+    //currentFilter = 'ALL';
 
     constructor(private todoService: TodoService) {
     }
-
+    //todoFilterList = this.todoList.pipe(tap());
     addTodo(newTodoVal: string): void {
         const _todo = {
                 name: newTodoVal,
@@ -98,14 +100,16 @@ export class TodoCompComponent implements OnInit {
         return this.countByCompleted(true);
     }
 
-    get todoDisplayedList(): Todo[] {
-      switch(this.currentFilter) {
+    filterList(filter:string): void {
+      switch(filter) {
         case "ACTIVE":
-          return this.todoService.todos.filter(todo => todo.completed===false);
+          this.todoList = of(this.todoService.todos.filter(todo => todo.completed===false));
+          break;
         case "COMPLETED":
-          return this.todoService.todos.filter(todo => todo.completed===true);
+          this.todoList = of(this.todoService.todos.filter(todo => todo.completed===true));
+          break;
         default:
-          return this.todoService.todos;
+          this.todoList = of(this.todoService.todos);
       }
     }
 

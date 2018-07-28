@@ -8,6 +8,7 @@ import { SingleTodoComponent } from './components/single-todo/single-todo.compon
 import {FormsModule} from '@angular/forms';
 import { TodofooterComponent } from './components/todofooter/todofooter.component';
 import { TodoInputComponent } from './components/todo-input/todo-input.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TodoInputComponent } from './components/todo-input/todo-input.component
   imports: [
     BrowserModule,
     HttpClientModule,
-      FormsModule
+      FormsModule,
+      AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

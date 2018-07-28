@@ -20,6 +20,6 @@
                       [filterOptions]="filterOptions"
                       [completedCount]="completedCount"
                       (onDeleteCompleted)="clearCompleted()"
-                      (onFilterSelected)="currentFilter = $event"></app-todofooter>
+                      (onFilterSelected)="filterList($event)"></app-todofooter>
     </div>
 </div>
