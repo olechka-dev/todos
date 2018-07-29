@@ -103,13 +103,19 @@ export class TodoCompComponent implements OnInit {
     filterList(filter:string): void {
       switch(filter) {
         case "ACTIVE":
-          this.todoList = of(this.todoService.todos.filter(todo => todo.completed===false));
+          this.todoList = this.todoService.getTodoList().pipe(map(todos => {
+            return todos.filter(todo => todo.completed===false)
+          }));
+
+          //of(this.todoService.todos.filter(todo => todo.completed===false));
           break;
         case "COMPLETED":
-          this.todoList = of(this.todoService.todos.filter(todo => todo.completed===true));
+        this.todoList = this.todoService.getTodoList().pipe(map(todos => {
+          return todos.filter(todo => todo.completed===true)
+        }));
           break;
         default:
-          this.todoList = of(this.todoService.todos);
+          this.todoList = this.todoService.getTodoList();
       }
     }
 
