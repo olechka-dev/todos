@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {BaseTodo, Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import { Observable } from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {of} from 'rxjs/internal/observable/of';
+import { TodoFilterPipe } from './filterPipe';
 
 
 @Component({
@@ -97,18 +100,6 @@ export class TodoCompComponent implements OnInit {
     get completedCount(): number {
         return this.countByCompleted(true);
     }
-
-    get todoDisplayedList(): Todo[] {
-      switch(this.currentFilter) {
-        case "ACTIVE":
-          return this.todoService.todos.filter(todo => todo.completed===false);
-        case "COMPLETED":
-          return this.todoService.todos.filter(todo => todo.completed===true);
-        default:
-          return this.todoService.todos;
-      }
-    }
-
 
     ngOnInit() {
           this.todoList = this.todoService.getTodoList();

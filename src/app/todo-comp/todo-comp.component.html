@@ -3,7 +3,7 @@
 
 <div id="list" *ngIf="todoList" class="centered">
     <ul class="ul-todos">
-        <ng-container *ngFor="let todo of todoList | async">
+        <ng-container *ngFor="let todo of todoList | async | todoFilter:currentFilter">
 
 
             <app-single-todo
@@ -20,6 +20,6 @@
                       [filterOptions]="filterOptions"
                       [completedCount]="completedCount"
                       (onDeleteCompleted)="clearCompleted()"
-                      (onFilterSelected)="currentFilter = $event"></app-todofooter>
+                      (onFilterSelected)="currentFilter=$event"></app-todofooter>
     </div>
 </div>

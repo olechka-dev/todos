@@ -8,6 +8,9 @@ import { SingleTodoComponent } from './components/single-todo/single-todo.compon
 import {FormsModule} from '@angular/forms';
 import { TodofooterComponent } from './components/todofooter/todofooter.component';
 import { TodoInputComponent } from './components/todo-input/todo-input.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { TodoStatisticsComponent } from './components/todo-statistics/todo-statistics.component';
+import { TodoFilterPipe } from './todo-comp/filterPipe'
 
 @NgModule({
   declarations: [
@@ -15,12 +18,15 @@ import { TodoInputComponent } from './components/todo-input/todo-input.component
     TodoCompComponent,
     SingleTodoComponent,
     TodofooterComponent,
-    TodoInputComponent
+    TodoInputComponent,
+    TodoStatisticsComponent,
+    TodoFilterPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-      FormsModule
+      FormsModule,
+      AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
