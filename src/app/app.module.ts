@@ -10,6 +10,7 @@ import { TodofooterComponent } from './components/todofooter/todofooter.componen
 import { TodoInputComponent } from './components/todo-input/todo-input.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TodoStatisticsComponent } from './components/todo-statistics/todo-statistics.component';
+import { TodoFilterPipe } from './todo-comp/filterPipe'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TodoStatisticsComponent } from './components/todo-statistics/todo-stati
     SingleTodoComponent,
     TodofooterComponent,
     TodoInputComponent,
-    TodoStatisticsComponent
+    TodoStatisticsComponent,
+    TodoFilterPipe
   ],
   imports: [
     BrowserModule,
