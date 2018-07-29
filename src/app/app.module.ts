@@ -10,7 +10,8 @@ import { TodofooterComponent } from './components/todofooter/todofooter.componen
 import { TodoInputComponent } from './components/todo-input/todo-input.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TodoStatisticsComponent } from './components/todo-statistics/todo-statistics.component';
-import { TodoFilterPipe } from './todo-comp/filterPipe'
+import { TodoFilterPipe } from './custom-pipes/filterPipe';
+import { CountPipe } from './custom-pipes/countPipe'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TodoFilterPipe } from './todo-comp/filterPipe'
     TodofooterComponent,
     TodoInputComponent,
     TodoStatisticsComponent,
-    TodoFilterPipe
+    TodoFilterPipe,
+    CountPipe
   ],
   imports: [
     BrowserModule,

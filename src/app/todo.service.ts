@@ -16,7 +16,7 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TodoService {
-    todos: Todo[];
+    
 
     constructor(private http: HttpClient) {
     }
@@ -38,10 +38,8 @@ export class TodoService {
 
     getTodoList(): Observable<Todo[]> {
         let todoList = [];
-        return this.http.get<Todo[]>(this.baseUrl).pipe(
-          tap(todos => {this.todos = todos}),
-            catchError(this.handleError)
-        );
+         return this.http.get<Todo[]>(this.baseUrl);
+        //                                                            .pipe(tap(todos => {this.todos = todos}),catchError(this.handleError))
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {
