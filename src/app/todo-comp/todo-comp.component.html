@@ -1,9 +1,9 @@
 <h1>TODOS</h1>
 <app-todo-input (onAdd)="addTodo($event)"></app-todo-input>
 
-<div id="list" *ngIf="todoList" class="centered">
+<div id="list" *ngIf="todoList | async as todos" class="centered">
     <ul class="ul-todos">
-        <ng-container *ngFor="let todo of todoList | async | todoFilter:currentFilter">
+        <ng-container *ngFor="let todo of todos | todoFilter:todoService.currentFilter">
 
 
             <app-single-todo
@@ -15,11 +15,11 @@
 
         </ng-container>
     </ul>
-    <div id="footer" class="footer" *ngIf="(todoList | async)?.length>0">
-      <app-todofooter [activeCount]="activeCount"
-                      [filterOptions]="filterOptions"
-                      [completedCount]="completedCount"
-                      (onDeleteCompleted)="clearCompleted()"
-                      (onFilterSelected)="currentFilter=$event"></app-todofooter>
+    <div id="footer" class="footer" *ngIf="todos.length>0">
+      <app-todofooter [activeCount]="todos | count:'ACTIVE'"
+                      [filterOptions]="todoService.filterOptions"
+                      [completedCount]="todos | count:'COMPLETED'"
+                      (onDeleteCompleted)="clearCompleted(todos)"
+                      (onFilterSelected)="todoService.currentFilter=$event"></app-todofooter>
     </div>
 </div>

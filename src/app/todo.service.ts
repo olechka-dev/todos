@@ -16,13 +16,15 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TodoService {
-    todos: Todo[];
+
 
     constructor(private http: HttpClient) {
     }
 
     readonly baseUrl = 'http://localhost:3000/todos';
     readonly deleteCompletedPath = 'todos/deleteCompleted';
+    readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
+    currentFilter = 'ALL';
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -38,10 +40,8 @@ export class TodoService {
 
     getTodoList(): Observable<Todo[]> {
         let todoList = [];
-        return this.http.get<Todo[]>(this.baseUrl).pipe(
-          tap(todos => {this.todos = todos}),
-            catchError(this.handleError)
-        );
+         return this.http.get<Todo[]>(this.baseUrl);
+        //                                                            .pipe(tap(todos => {this.todos = todos}),catchError(this.handleError))
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {
