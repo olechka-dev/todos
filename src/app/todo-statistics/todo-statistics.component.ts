@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo-statistics',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-statistics.component.css']
 })
 export class TodoStatisticsComponent implements OnInit {
-filterOptions = ["ACTIVE", "COMPLETED", "ALL"];
-  constructor() { }
+  
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
   }

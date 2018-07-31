@@ -3,7 +3,7 @@
 
 <div id="list" *ngIf="todoList | async as todos" class="centered">
     <ul class="ul-todos">
-        <ng-container *ngFor="let todo of todos | todoFilter:currentFilter">
+        <ng-container *ngFor="let todo of todos | todoFilter:todoService.currentFilter">
 
 
             <app-single-todo
@@ -17,9 +17,9 @@
     </ul>
     <div id="footer" class="footer" *ngIf="todos.length>0">
       <app-todofooter [activeCount]="todos | count:'ACTIVE'"
-                      [filterOptions]="filterOptions"
+                      [filterOptions]="todoService.filterOptions"
                       [completedCount]="todos | count:'COMPLETED'"
                       (onDeleteCompleted)="clearCompleted(todos)"
-                      (onFilterSelected)="currentFilter=$event"></app-todofooter>
+                      (onFilterSelected)="todoService.currentFilter=$event"></app-todofooter>
     </div>
 </div>

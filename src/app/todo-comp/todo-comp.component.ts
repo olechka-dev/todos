@@ -14,8 +14,8 @@ import {of} from 'rxjs/internal/observable/of';
 
 export class TodoCompComponent implements OnInit {
     todoList: Observable<Todo[]>;
-    readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
-    currentFilter = 'ALL';
+    // readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
+    // currentFilter = 'ALL';
 
     constructor(private todoService: TodoService) {
     }
