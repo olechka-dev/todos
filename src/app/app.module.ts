@@ -11,7 +11,10 @@ import { TodoInputComponent } from './components/todo-input/todo-input.component
 import { AppRoutingModule } from './/app-routing.module';
 import { TodoStatisticsComponent } from './todo-statistics/todo-statistics.component';
 import { TodoFilterPipe } from './custom-pipes/filterPipe';
-import { CountPipe } from './custom-pipes/countPipe'
+import { CountPipe } from './custom-pipes/countPipe';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers/todo.reducer';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { CountPipe } from './custom-pipes/countPipe'
     BrowserModule,
     HttpClientModule,
       FormsModule,
-      AppRoutingModule
+      AppRoutingModule,
+      StoreModule.forRoot({
+      todos: reducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

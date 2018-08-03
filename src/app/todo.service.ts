@@ -6,6 +6,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
+import { Store } from '@ngrx/store';
+import { AppState } from './app.state';
+import * as TodoActions from './actions/todo.actions';
+
+import { BehaviorSubject } from 'rxjs';
+
 const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -18,7 +24,7 @@ const httpOptions = {
 export class TodoService {
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private store: Store<AppState>) {
     }
 
     readonly baseUrl = 'http://localhost:3000/todos';
@@ -38,10 +44,12 @@ export class TodoService {
             'Something bad happened; please try again later.');
     };
 
-    getTodoList(): Observable<Todo[]> {
-        let todoList = [];
-         return this.http.get<Todo[]>(this.baseUrl);
-        //                                                            .pipe(tap(todos => {this.todos = todos}),catchError(this.handleError))
+    getTodoList(): void {
+          this.http.get<Todo[]>(this.baseUrl)
+         .pipe(catchError(this.handleError)).subscribe(todos => {
+           console.log("2");
+              this.store.dispatch(new TodoActions.GetTodos(todos))
+            });
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {

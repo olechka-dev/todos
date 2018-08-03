@@ -4,7 +4,7 @@ import { TodoStatisticsComponent } from './todo-statistics/todo-statistics.compo
 import { TodoCompComponent } from './todo-comp/todo-comp.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  { path: '', redirectTo: '/list', pathMatch: 'full' },
   { path: 'list', component: TodoCompComponent },
   { path: 'stat', component: TodoStatisticsComponent }
 ];
