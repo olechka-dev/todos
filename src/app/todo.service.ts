@@ -27,9 +27,7 @@ export class TodoService {
     }
 
     readonly baseUrl = 'http://localhost:3000/todos';
-    readonly deleteCompletedPath = 'todos/deleteCompleted';
     readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
-    currentFilter = 'ALL';
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

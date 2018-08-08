@@ -3,6 +3,8 @@ import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store';
+import * as TodoActions from "../store/todos/todo.actions";
+import * as FilterActions from "../store/filter/actions"
 
 
 @Component({
@@ -17,6 +19,11 @@ export class TodoCompComponent implements OnInit {
     }
 
     todoList = this.store.select('todos');
+    curFilter = this.store.select("filter");
+
+    updateCurFilter(filter) {
+        this.store.dispatch(new FilterActions.UpdateFilter(filter));
+    }
 
     addTodo(newTodoVal: string): void {
         const _todo = {
