@@ -7,10 +7,8 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
 import {Store} from '@ngrx/store';
-import {AppState} from './store/app.state';
+import {AppState} from './store';
 import * as TodoActions from './store/todos/todo.actions';
-
-import {BehaviorSubject} from 'rxjs';
 
 const httpOptions = {
     headers: new HttpHeaders({

@@ -1,12 +1,10 @@
 import {NgModule} from '@angular/core';
-import {reducer} from './todos/todo.reducer';
 import {StoreModule} from '@ngrx/store';
+import {reducers} from './index';
 
 @NgModule({
     imports: [
-        StoreModule.forRoot({
-            todos: reducer
-        }),
+        StoreModule.forRoot(reducers),
     ]
 })
 export class TodoStoreModule {

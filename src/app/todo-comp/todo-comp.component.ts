@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import {Store} from '@ngrx/store';
-import {AppState} from '../store/app.state';
+import {AppState} from '../store';
 
 
 @Component({
