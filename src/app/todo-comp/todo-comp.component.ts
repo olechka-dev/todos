@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseTodo, Todo} from '../todo';
+import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
-import { Observable } from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../store';
 
 
 @Component({
@@ -11,30 +12,28 @@ import { Observable } from 'rxjs';
 })
 
 export class TodoCompComponent implements OnInit {
-    todoList: Observable<Todo[]>; //problem: if I use async pipe I don't have access to data returned by observable inside the class.
-                                  //That's why I still have to save the data in the array in server. Any other way to do it?
-    readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
-    currentFilter = 'ALL';
+    constructor(private todoService: TodoService, private store: Store<AppState>) {
 
-    constructor(private todoService: TodoService) {
     }
+
+    todoList = this.store.select('todos');
 
     addTodo(newTodoVal: string): void {
         const _todo = {
-                name: newTodoVal,
-                completed: false
-            };
+            name: newTodoVal,
+            completed: false
+        };
         this.todoService.saveTodo(_todo)
-                .subscribe(() => {
-                  this.todoList = this.todoService.getTodoList();
-                });
-            }
+            .subscribe(() => {
+                this.todoService.getTodoList();
+            });
+    }
 
     removeTodo(id: number): void {
-      console.log("from parent: ", id);
+        console.log('from parent: ', id);
         this.todoService.deleteTodo(id)
             .subscribe(() => {
-              this.todoList = this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
@@ -43,7 +42,7 @@ export class TodoCompComponent implements OnInit {
         if (!!todo.name) {
             this.todoService.updateTodo(todo.id, todo)
                 .subscribe(() => {
-                  this.todoList = this.todoService.getTodoList()
+                    this.todoService.getTodoList();
                 });
         } else {
             this.removeTodo(todo.id);
@@ -55,63 +54,22 @@ export class TodoCompComponent implements OnInit {
         todo.completed = !todo.completed;
         this.todoService.updateTodo(todo.id, todo)
             .subscribe(() => {
-              this.todoList = this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
-    clearCompleted(): void {
-        const ids = this.todoService.todos.filter(todo => todo.completed)
+    clearCompleted(todos: Todo[]): void {
+        const ids = todos.filter(todo => todo.completed)
             .map(todo => todo.id);
 
         this.todoService.removeAllCompleted(ids)
             .subscribe(() => {
-                this.todoList = this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
-
-    private countByCompleted(completed: boolean): number {
-        let counter = 0;
-        this.todoService.todos.forEach((item) => {
-            if (item.completed === completed) {
-                counter++;
-            }
-        });
-        return counter;
-    }
-
-    private findIndexById(id: number): number {
-        let indexOfTodo = -1;
-        this.todoService.todos.forEach((item, i) => {
-            if (item.id === id) {
-                indexOfTodo = i;
-            }
-        });
-        return indexOfTodo;
-    }
-
-    get activeCount(): number {
-        return this.countByCompleted(false);
-    }
-
-    get completedCount(): number {
-        return this.countByCompleted(true);
-    }
-
-    get todoDisplayedList(): Todo[] {
-      switch(this.currentFilter) {
-        case "ACTIVE":
-          return this.todoService.todos.filter(todo => todo.completed===false);
-        case "COMPLETED":
-          return this.todoService.todos.filter(todo => todo.completed===true);
-        default:
-          return this.todoService.todos;
-      }
-    }
-
-
     ngOnInit() {
-          this.todoList = this.todoService.getTodoList();
+        this.todoService.getTodoList();
     }
 
 }
