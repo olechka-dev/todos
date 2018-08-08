@@ -6,11 +6,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
-import { Store } from '@ngrx/store';
-import { AppState } from './app.state';
-import * as TodoActions from './actions/todo.actions';
+import {Store} from '@ngrx/store';
+import {AppState} from './store/app.state';
+import * as TodoActions from './store/todos/todo.actions';
 
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -24,7 +24,8 @@ const httpOptions = {
 export class TodoService {
 
 
-    constructor(private http: HttpClient, private store: Store<AppState>) {
+    constructor(private http: HttpClient,
+                private store: Store<AppState>) {
     }
 
     readonly baseUrl = 'http://localhost:3000/todos';
@@ -45,11 +46,11 @@ export class TodoService {
     };
 
     getTodoList(): void {
-          this.http.get<Todo[]>(this.baseUrl)
-         .pipe(catchError(this.handleError)).subscribe(todos => {
-           console.log("2");
-              this.store.dispatch(new TodoActions.GetTodos(todos))
-            });
+        this.http.get<Todo[]>(this.baseUrl)
+            .pipe(catchError(this.handleError)).subscribe(todos => {
+            console.log('2');
+            this.store.dispatch(new TodoActions.GetTodos(todos));
+        });
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {

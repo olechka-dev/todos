@@ -1,15 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseTodo, Todo} from '../todo';
+import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
-import { Observable } from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
-import {of} from 'rxjs/internal/observable/of';
-
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
-import * as TodoActions from '../actions/todo.actions';
-
-
+import {Store} from '@ngrx/store';
+import {AppState} from '../store/app.state';
 
 
 @Component({
@@ -22,23 +15,25 @@ export class TodoCompComponent implements OnInit {
     constructor(private todoService: TodoService, private store: Store<AppState>) {
 
     }
+
     todoList = this.store.select('todos');
+
     addTodo(newTodoVal: string): void {
         const _todo = {
-                name: newTodoVal,
-                completed: false
-            };
+            name: newTodoVal,
+            completed: false
+        };
         this.todoService.saveTodo(_todo)
-                .subscribe(() => {
-                  this.todoService.getTodoList();
-                });
-            }
+            .subscribe(() => {
+                this.todoService.getTodoList();
+            });
+    }
 
     removeTodo(id: number): void {
-      console.log("from parent: ", id);
+        console.log('from parent: ', id);
         this.todoService.deleteTodo(id)
             .subscribe(() => {
-              this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
@@ -47,7 +42,7 @@ export class TodoCompComponent implements OnInit {
         if (!!todo.name) {
             this.todoService.updateTodo(todo.id, todo)
                 .subscribe(() => {
-                  this.todoService.getTodoList()
+                    this.todoService.getTodoList();
                 });
         } else {
             this.removeTodo(todo.id);
@@ -59,22 +54,22 @@ export class TodoCompComponent implements OnInit {
         todo.completed = !todo.completed;
         this.todoService.updateTodo(todo.id, todo)
             .subscribe(() => {
-              this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
-    clearCompleted(todos:Todo[]): void {
+    clearCompleted(todos: Todo[]): void {
         const ids = todos.filter(todo => todo.completed)
             .map(todo => todo.id);
 
         this.todoService.removeAllCompleted(ids)
             .subscribe(() => {
-                this.todoService.getTodoList()
+                this.todoService.getTodoList();
             });
     }
 
     ngOnInit() {
-          this.todoService.getTodoList();
+        this.todoService.getTodoList();
     }
 
 }
