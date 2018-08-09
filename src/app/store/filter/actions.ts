@@ -9,4 +9,4 @@ export class UpdateFilter implements Action {
 }
 
 
-export type Actions = UpdateFilter ;
+export type FiltersActions = UpdateFilter ;

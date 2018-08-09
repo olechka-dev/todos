@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseTodo, Todo} from './todo';
 import {of} from 'rxjs/internal/observable/of';
 import {Observable, throwError} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
@@ -41,12 +41,25 @@ export class TodoService {
             'Something bad happened; please try again later.');
     };
 
-    getTodoList(): void {
-        this.http.get<Todo[]>(this.baseUrl)
-            .pipe(catchError(this.handleError)).subscribe(todos => {
-            console.log('2');
-            this.store.dispatch(new TodoActions.GetTodos(todos));
-        });
+    getTodoList(payload?): Observable<Todo[]> {
+        console.log('payload', payload);
+        const options = {
+            params: new HttpParams()
+        };
+
+        switch (payload) {
+            case 'ACTIVE':
+                options.params = new HttpParams().set('completed', 'false');
+                break;
+            case 'COMPLETED':
+                options.params = new HttpParams().set('completed', 'true');
+                break;
+            case 'ALL':
+                break;
+        }
+
+        return this.http.get<Todo[]>(this.baseUrl, options)
+            .pipe(catchError(this.handleError));
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {
