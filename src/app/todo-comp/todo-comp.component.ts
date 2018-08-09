@@ -3,8 +3,8 @@ import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store';
-import * as TodoActions from "../store/todos/todo.actions";
-import * as FilterActions from "../store/filter/actions"
+import * as FilterActions from '../store/filter/actions';
+import {GetTodos} from '../store/todos/todo.actions';
 
 
 @Component({
@@ -14,12 +14,20 @@ import * as FilterActions from "../store/filter/actions"
 })
 
 export class TodoCompComponent implements OnInit {
-    constructor(private todoService: TodoService, private store: Store<AppState>) {
+    todoList;
+    curFilter;
+
+    constructor(private todoService: TodoService,
+                private store: Store<AppState>) {
+
+        this.store.dispatch(new GetTodos());
+
+        this.curFilter = this.store.select('filter');
+        this.todoList = this.store.select('todos');
+
 
     }
 
-    todoList = this.store.select('todos');
-    curFilter = this.store.select("filter");
 
     updateCurFilter(filter) {
         this.store.dispatch(new FilterActions.UpdateFilter(filter));
@@ -30,18 +38,18 @@ export class TodoCompComponent implements OnInit {
             name: newTodoVal,
             completed: false
         };
-        this.todoService.saveTodo(_todo)
-            .subscribe(() => {
-                this.todoService.getTodoList();
-            });
+        // this.todoService.saveTodo(_todo)
+        //     .subscribe(() => {
+        //         this.todoService.getTodoList();
+        //     });
     }
 
     removeTodo(id: number): void {
         console.log('from parent: ', id);
-        this.todoService.deleteTodo(id)
-            .subscribe(() => {
-                this.todoService.getTodoList();
-            });
+        // this.todoService.deleteTodo(id)
+        //     .subscribe(() => {
+        //         this.todoService.getTodoList();
+        //     });
     }
 
 

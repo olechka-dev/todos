@@ -7,7 +7,7 @@
     },
     {
       "name": "sdsf",
-      "completed": false,
+      "completed": true,
       "id": 2
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "sdfs",
-      "completed": true,
+      "completed": false,
       "id": 4
     },
     {
