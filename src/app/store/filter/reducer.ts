@@ -1,9 +1,9 @@
-import * as FilterActions from './actions';
+import {FiltersActionsTypes, FiltersActions} from './actions';
 
-export function reducerFilter(state: string = 'ALL', action: FilterActions.FiltersActions) {
+export function reducerFilter(state: string = 'ALL', action: FiltersActionsTypes) {
     switch (action.type) {
-        case FilterActions.UPDATE_FILTER:
-            return action.filter;
+        case FiltersActions.UPDATE_FILTER:
+            return action.payload;
         default:
             return state;
 

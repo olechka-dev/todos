@@ -1,12 +1,15 @@
 import { Action } from '@ngrx/store';
 
-export const UPDATE_FILTER = '[FILTER] Update';
-
-export class UpdateFilter implements Action {
-    readonly type = UPDATE_FILTER;
-
-    constructor(public filter: string) {}
+export enum FiltersActions {
+    UPDATE_FILTER = '[FILTER] Update'
 }
 
 
-export type FiltersActions = UpdateFilter ;
+export class UpdateFilter implements Action {
+    readonly type = FiltersActions.UPDATE_FILTER;
+
+    constructor(public payload: string) {}
+}
+
+
+export type FiltersActionsTypes = UpdateFilter ;

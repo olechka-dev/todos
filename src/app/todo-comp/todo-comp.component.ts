@@ -4,8 +4,8 @@ import {TodoService} from '../todo.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store';
 import * as FilterActions from '../store/filter/actions';
-import {GetTodos} from '../store/todos/todo.actions';
 
+import * as TodoActions from '../store/todos/todo.actions';
 
 @Component({
     selector: 'app-todo-comp',
@@ -20,13 +20,23 @@ export class TodoCompComponent implements OnInit {
     constructor(private todoService: TodoService,
                 private store: Store<AppState>) {
 
-        this.store.dispatch(new GetTodos());
+        this.store.dispatch(new TodoActions.GetTodos());
 
         this.curFilter = this.store.select('filter');
         this.todoList = this.store.select('todos');
 
 
     }
+
+    //issues:
+    // 1. Because of saving in Store only todos that match current filter ...:
+    // 1.1 Counter always shows 0 if curFilter=="COMPLETED";
+    // 1.2 Clear completed button doesn't delete anything if curFilter=="ACTIVE";
+    // 1.3 Statistics component receives only the data which matches current filter though should receive ALL;
+    //
+    // 2. Need to store Error and Success flags in state to show content accordingly (error message or todolist);
+    // 3. Add nice css;
+    // 4. Add loading animation
 
 
     updateCurFilter(filter) {
@@ -38,27 +48,18 @@ export class TodoCompComponent implements OnInit {
             name: newTodoVal,
             completed: false
         };
-        // this.todoService.saveTodo(_todo)
-        //     .subscribe(() => {
-        //         this.todoService.getTodoList();
-        //     });
+        this.store.dispatch(new TodoActions.AddTodo(_todo));
     }
 
     removeTodo(id: number): void {
         console.log('from parent: ', id);
-        // this.todoService.deleteTodo(id)
-        //     .subscribe(() => {
-        //         this.todoService.getTodoList();
-        //     });
+        this.store.dispatch(new TodoActions.RemoveTodo(id));
     }
 
 
     editTodo(todo): void {
         if (!!todo.name) {
-            this.todoService.updateTodo(todo.id, todo)
-                .subscribe(() => {
-                    this.todoService.getTodoList();
-                });
+            this.store.dispatch(new TodoActions.UpdateTodo(todo));
         } else {
             this.removeTodo(todo.id);
         }
@@ -67,24 +68,19 @@ export class TodoCompComponent implements OnInit {
 
     completeToggle(todo): void {
         todo.completed = !todo.completed;
-        this.todoService.updateTodo(todo.id, todo)
-            .subscribe(() => {
-                this.todoService.getTodoList();
-            });
+        this.store.dispatch(new TodoActions.UpdateTodo(todo));
     }
 
     clearCompleted(todos: Todo[]): void {
         const ids = todos.filter(todo => todo.completed)
             .map(todo => todo.id);
 
-        this.todoService.removeAllCompleted(ids)
-            .subscribe(() => {
-                this.todoService.getTodoList();
-            });
+        this.store.dispatch(new TodoActions.RemoveCompletedTodos(ids));
+
     }
 
     ngOnInit() {
-        this.todoService.getTodoList();
+
     }
 
 }
