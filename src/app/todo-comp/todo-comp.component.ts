@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
-import {Store} from '@ngrx/store';
-import {AppState} from '../store';
+import {select, Store} from '@ngrx/store';
+import {AppState, metadataSelector, todosListSelector} from '../store';
 import * as FilterActions from '../store/filter/actions';
 
 import * as TodoActions from '../store/todos/todo.actions';
+import {tap} from "rxjs/operators";
 
 @Component({
     selector: 'app-todo-comp',
@@ -16,14 +17,28 @@ import * as TodoActions from '../store/todos/todo.actions';
 export class TodoCompComponent implements OnInit {
     todoList;
     curFilter;
+    metadata;
 
     constructor(private todoService: TodoService,
                 private store: Store<AppState>) {
 
         this.store.dispatch(new TodoActions.GetTodos());
 
-        this.curFilter = this.store.select('filter');
-        this.todoList = this.store.select('todos');
+        this.curFilter = this.store
+            .pipe(
+                select('filter')
+            );
+
+        this.todoList = this.store
+            .pipe(
+                select(todosListSelector),
+                tap((_) => console.log(_))
+            );
+        this.store
+            .pipe(
+                select(metadataSelector),
+                tap((_) => console.log(_))
+            ).subscribe(metadata => this.metadata = metadata);
 
 
     }
@@ -71,11 +86,11 @@ export class TodoCompComponent implements OnInit {
         this.store.dispatch(new TodoActions.UpdateTodo(todo));
     }
 
-    clearCompleted(todos: Todo[]): void {
-        const ids = todos.filter(todo => todo.completed)
-            .map(todo => todo.id);
+    clearCompleted(): void {
+        // const ids = todos.filter(todo => todo.completed)
+        //     .map(todo => todo.id);
 
-        this.store.dispatch(new TodoActions.RemoveCompletedTodos(ids));
+        this.store.dispatch(new TodoActions.RemoveCompletedTodos());
 
     }
 

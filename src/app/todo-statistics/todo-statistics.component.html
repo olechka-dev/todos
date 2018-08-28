@@ -1,9 +1,9 @@
 <div class="big-font">
-<div *ngIf="todos | async as todoArray">
-  <ng-container *ngIf="todoArray | count:'ALL'; else noContent">
+<div *ngIf="metadata | async as metadataObj">
+  <ng-container *ngIf="metadataObj.all; else noContent">
     <ul class="ul-todos">
       <li *ngFor="let filter of todoService.filterOptions">
-        {{filter}} - {{todoArray | count:filter}}
+        {{filter}} - {{metadataObj[filter | lowercase]}}
       </li>
     </ul>
   </ng-container>

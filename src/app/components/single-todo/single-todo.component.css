@@ -1,19 +1,22 @@
 .centered-block {
     width: 400px;
     height: 50px;
-    padding-left: 50px;
+    padding: 0px 0px 0px 50px;
     font-size: 20px;
     margin:auto;
     position:relative;
-    border: 2px solid;
+    border: 1px solid;
     border-color: #b3b3b3;
 }
 
 .li-nopad {
-    padding-left: 0px;
-    width:450px;
-    border: 2px solid;
+    padding: 0px;
+    padding: 0px;
+    width: 450px;
+    border: 1px solid;
     border-top: 0px;
+    border-left: 0px;
+    margin: 0px;
     border-color: #d9d9d9;
 }
 
@@ -22,6 +25,46 @@
     margin: 0px 0px 0px 15px;
     float: left;
     height: 50px;
+
+    cursor: pointer;
+}
+
+.checkmark {
+    content: ' ';
+    z-index: 0;
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    top: 8px;
+    left: 7px;
+    background: radial-gradient(circle, white 40%, cornflowerblue 45%, cornflowerblue 0%, transparent 20%);
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    top: 18px;
+    left: 17px;
+}
+
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.check input:checked ~ .checkmark:after {
+    display: block;
+}
+.check .checkmark:after {
+    left: 12px;
+    top: 1px;
+    width: 10px;
+    height: 20px;
+    border: solid cornflowerblue;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .hide {
@@ -35,12 +78,15 @@
     transform: translateY(-50%);
     width:450px;
 }
-label {
-    float:left;
+.label-name {
+    float: left;
     height: 50px;
     line-height: 50px;
     width: 350px;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .edit {
@@ -52,43 +98,30 @@ label {
     width: 397px;
     font-size: 20px;
     font-weight: 200;
+    border: none;
+    outline:none;
 }
 .delete-button {
+    height: 25px;
+    width: 25px;
     top: 0px;
     right: 10px;
     position: absolute;
     top: 50%;
+    -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+    color: #ff0000;
+    border-radius: 15px;
+    font-size: 15px;
+    border-color: #ff0000;
 }
 
-.footer {
-    position: relative;
-    margin: auto;
-    height: 50px;
-    width: 450px;
+.hide-button {
+    visibility: hidden;
 }
-.counter {
-    float: left;
-    margin-left: 20px;
-}
+
+
 button {
     cursor:pointer;
 }
 
-.clear-completed {
-    border: none;
-}
-
-.ul-filter {
-    list-style-type: none;
-    width: fit-content;
-
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 0px;
-}
-.ul-filter li {
-    float: left;
-    margin-left: 5px;
-    margin-right: 5px;
-}

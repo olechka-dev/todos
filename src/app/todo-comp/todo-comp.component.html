@@ -1,4 +1,5 @@
 <h1>TODOS</h1>
+<div class="shadow">
 <app-todo-input (onAdd)="addTodo($event)"></app-todo-input>
 
 <div id="list" *ngIf="todoList | async as todos" class="centered">
@@ -15,11 +16,13 @@
 
         </ng-container>
     </ul>
-    <div id="footer" class="footer" *ngIf="todos.length>0">
-        <app-todofooter [activeCount]="todos | count:'ACTIVE'"
+    <div id="footer" class="footer" *ngIf="metadata && metadata.all>0">
+        <app-todofooter [metadata]="metadata"
+                        [curFilter]="curFilter | async"
                         [filterOptions]="todoService.filterOptions"
-                        [completedCount]="todos | count:'COMPLETED'"
                         (onDeleteCompleted)="clearCompleted(todos)"
                         (onFilterSelected)="updateCurFilter($event)"></app-todofooter>
     </div>
 </div>
+</div>
+

@@ -2,7 +2,6 @@
 const path = require('path');
 const jsonServer = require('json-server');
 const server = jsonServer.create();
-//const router = jsonServer.router(path.join(__dirname, 'data.json'));
 const router = jsonServer.router(path.join(__dirname, './data.json'));
 
 const middlewares = jsonServer.defaults();
@@ -45,15 +44,44 @@ server.use(jsonServer.bodyParser);
 //   }, 400)
 // })
 //
-// server.delete('/todos/deleteCompleted', function (req, res, next) {
-//   const db = router.db
-//   const t = db.get('todos').remove({completed: true}).write()
-//   const r = db.get('todos').value()
-//
-//   setTimeout(function () {
-//     res.json(r)
-//   }, 600)
-// })
+server.get('/todos', function(req, res, next) {
+    const db = router.db
+    var filter = {};
+    if(req.query.completed=="true") {
+        filter = Object.assign(filter, {completed: true})
+    }
+    if(req.query.completed=="false") {
+        filter = Object.assign(filter, {completed: false})
+    }
+    var results = db.get('todos').filter(filter).value();
+
+    var completedCount = db.get('todos').filter({completed:true}).size().value();
+    var notCompletedCount = db.get('todos').filter({completed:false}).size().value();
+    var allCount = db.get('todos').size().value();
+
+    var metadata = {
+        completed: completedCount,
+        active: notCompletedCount,
+        all: allCount
+    }
+
+    var response = {
+        results: results,
+        metadata: metadata
+    }
+    console.log(metadata);
+    res.json(response);
+})
+
+server.delete('/todos/deleteCompleted', function (req, res, next) {
+  const db = router.db
+  const t = db.get('todos').remove({completed: true}).write()
+  const r = db.get('todos').value()
+
+  setTimeout(function () {
+    res.json(r)
+  }, 600)
+})
 
 server.post('/todos/delete-many', function (req, res, next) {
   const ids = req.body.ids;

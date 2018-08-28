@@ -9,6 +9,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {AppState} from './store';
 import * as TodoActions from './store/todos/todo.actions';
+import {TodoState} from "./store/todos/todo.reducer";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -41,7 +42,7 @@ export class TodoService {
             'Something bad happened; please try again later.');
     };
 
-    getTodoList(payload?): Observable<Todo[]> {
+    getTodoList(payload?): Observable<TodoState> {
         console.log('payload', payload);
         const options = {
             params: new HttpParams()
@@ -58,8 +59,15 @@ export class TodoService {
                 break;
         }
 
-        return this.http.get<Todo[]>(this.baseUrl, options)
-            .pipe(catchError(this.handleError));
+        return this.http.get<TodoState>(this.baseUrl, options)
+            .pipe(
+                map((resp: any) => {
+                    return {
+                        todos: resp.results,
+                        metadata: resp.metadata
+                    }
+                }),
+                catchError(this.handleError));
     }
 
     saveTodo(todo: BaseTodo): Observable<Todo> {
@@ -84,8 +92,9 @@ export class TodoService {
         );
     }
 
-    removeAllCompleted(ids: number[]): Observable<Todo[]> {
-        return this.http.post<Todo[]>(this.baseUrl + '/delete-many', {ids}, httpOptions).pipe(
+
+    removeAllCompleted(): Observable<Todo[]> {
+        return this.http.delete<Todo[]>(this.baseUrl + '/deleteCompleted', httpOptions).pipe(
             catchError(this.handleError)
         );
     }

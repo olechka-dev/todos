@@ -74,7 +74,7 @@ export class TodosEffects {
     removeCompletedTodos$ = this.actions$.pipe(
         ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.REMOVE_COMPLETED_TODOS),
         mergeMap((action) => {
-                return this.todoService.removeAllCompleted(action.payload)
+                return this.todoService.removeAllCompleted()
                     .pipe(
                         map((resp) => new TodoActions.GetTodos())
                     );

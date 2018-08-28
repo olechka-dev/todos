@@ -65,6 +65,7 @@ font-weight: 200;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
 }
 
 .footer {
@@ -72,17 +73,23 @@ font-weight: 200;
   margin: auto;
   height: 50px;
   width: 450px;
+
 }
 .counter {
-  float: left;
+    float: left;
     margin-left: 20px;
 }
-button {
-  cursor:pointer;
+.button-def {
+    cursor:pointer;
+    border-radius: 3px;
+    outline:none;
+    color:#6b6c73;
 }
 
 .clear-completed {
     border: none;
+    color:#6b6c73;
+    cursor:pointer;
 }
 
 .ul-filter {
@@ -99,6 +106,15 @@ margin-left: 5px;
 margin-right: 5px;
 }
  a {
-   font-size: 11px;
-    font-family: system-ui;
+     font-size: 12px;
+     position: absolute;
+     left: 190px;
+     top: 35px;
+     color: cornflowerblue;
+ }
+:visited {
+    color: cornflowerblue;
+}
+ .selected-filter {
+     border-color: cornflowerblue;
  }

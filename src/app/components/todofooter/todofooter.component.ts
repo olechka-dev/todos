@@ -7,13 +7,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TodofooterComponent implements OnInit {
 
-  @Input() activeCount;
+  @Input() metadata;
   @Input() filterOptions;
-  @Input() completedCount;
+  @Input() curFilter;
+
 
   @Output('onDeleteCompleted') onDeleteCompleted = new EventEmitter();
   @Output('onFilterSelected') onFilterSelected = new EventEmitter();
-  constructor() { }
+  constructor() {
+  }
 
   deleteCompleted() {
     this.onDeleteCompleted.emit();

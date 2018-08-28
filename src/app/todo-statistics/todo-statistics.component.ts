@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoService} from '../todo.service';
 import {Todo} from '../todo';
 import {Store} from '@ngrx/store';
-import {AppState} from '../store';
+import {AppState, metadataSelector} from '../store';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
 })
 export class TodoStatisticsComponent implements OnInit {
 
-    todos: Observable<Todo[]>;
+    metadata;
 
     constructor(private todoService: TodoService,
                 private store: Store<AppState>) {
@@ -20,7 +20,7 @@ export class TodoStatisticsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.todos = this.store.select('todos');
+        this.metadata = this.store.select(metadataSelector);
     }
 
 }

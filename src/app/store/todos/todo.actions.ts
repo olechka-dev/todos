@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Todo, BaseTodo} from '../../todo';
+import {TodoState} from "./todo.reducer";
 
 
 export enum TodosActions {
@@ -23,7 +24,7 @@ export class GetTodos implements Action {
 export class GetTodosSuccess implements Action {
     readonly type = TodosActions.LOAD_TODOS_SUCCESS;
 
-    constructor(public payload: Todo[]) {
+    constructor(public payload: TodoState) {
     }
 }
 
@@ -60,7 +61,7 @@ export class UpdateTodo implements Action {
 export class RemoveCompletedTodos implements Action {
     readonly type = TodosActions.REMOVE_COMPLETED_TODOS;
 
-    constructor(public payload: number[]) {
+    constructor(public payload?: any) {
 
     }
 }

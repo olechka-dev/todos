@@ -1,12 +1,12 @@
 .centered-block {
   width: 400px;
   height: 50px;
-  padding-left: 50px;
   font-size: 20px;
   margin:auto;
   position:relative;
-  border: 2px solid;
+  border: 1px solid;
   border-color: #b3b3b3;
+    padding: 0px 0px 0px 50px;
 }
 
 .ul-todos {
@@ -16,11 +16,12 @@
   margin-bottom: 0px;
 }
 .li-nopad {
-  padding-left: 0px;
-  width:450px;
-  border: 2px solid;
-  border-top: 0px;
-  border-color: #d9d9d9;
+    padding: 0px;
+    width: 450px;
+    border: 1px solid;
+    border-top: 0px;
+    margin: 0px;
+    border-color: #d9d9d9;
 }
 
 .check {
@@ -72,6 +73,7 @@ font-weight: 200;
   margin: auto;
   height: 50px;
   width: 450px;
+    padding-bottom: 20px;
 }
 .counter {
   float: left;
@@ -97,4 +99,17 @@ padding-left: 0px;
   float: left;
 margin-left: 5px;
 margin-right: 5px;
+}
+
+h1 {
+    font-weight: 100;
+    font-style: italic;
+    font-size: 50px;
+}
+
+.shadow {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 450px;
+    margin: auto;
+    //padding-bottom: 20px;
 }

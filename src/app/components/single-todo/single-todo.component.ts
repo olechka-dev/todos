@@ -16,8 +16,10 @@ export class SingleTodoComponent implements OnInit {
     @Output('onRemove') onRemove = new EventEmitter();
 
     public isEdit: false;
+    public isHovered;
 
     constructor() {
+        this.isHovered=true;
     }
 
     ngOnInit() {
@@ -36,6 +38,11 @@ export class SingleTodoComponent implements OnInit {
     removeSingleTodo() {
       this.onRemove.emit(this.singleTodo.id);
       console.log(this.singleTodo.id);
+    }
+
+    setFocus() {
+        setTimeout(() => {   //kostyl veka
+        this.editInput.nativeElement.focus()}, 0);
     }
 
 }
