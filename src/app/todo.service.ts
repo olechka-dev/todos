@@ -6,10 +6,10 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
-import {Store} from '@ngrx/store';
-import {AppState} from './store';
-import * as TodoActions from './store/todos/todo.actions';
-import {TodoState} from "./store/todos/todo.reducer";
+// import {Store} from '@ngrx/store';
+// import {AppState} from './store';
+// import * as TodoActions from './store/todos/todo.actions';
+ import {TodoState} from "./store/todos/todo.reducer";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -24,7 +24,7 @@ export class TodoService {
 
 
     constructor(private http: HttpClient,
-                private store: Store<AppState>) {
+                /* private store: Store<AppState>*/) {
     }
 
     readonly baseUrl = 'http://localhost:3000/todos';

@@ -22,4 +22,19 @@ describe('TodoInputComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit the name', () => {
+
+        let name = "test";
+        component.onAdd.subscribe(expName => {expect(expName).toEqual(name)});
+        component.addNewTodo(name);
+    });
+
+  it('should not emit the name', () => {
+
+      spyOn(component, "onAdd");
+        let name = "";
+        expect(component.onAdd).not.toHaveBeenCalled();
+        component.addNewTodo(name);
+    });
 });

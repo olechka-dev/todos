@@ -1,0 +1,14 @@
+@import "../../styleConstants";
+
+.centered-input {
+    @extend %centered-block;
+    border: 0px solid;
+    border-bottom: 1px solid #b3b3b3;;
+    font-style: italic;
+    &::placeholder {
+        color:#d4d4d4;
+    }
+}
+
+
+

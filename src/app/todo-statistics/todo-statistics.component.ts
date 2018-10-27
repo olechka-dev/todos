@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Component({
     selector: 'app-todo-statistics',
     templateUrl: './todo-statistics.component.html',
-    styleUrls: ['./todo-statistics.component.css']
+    styleUrls: ['./todo-statistics.component.scss']
 })
 export class TodoStatisticsComponent implements OnInit {
 

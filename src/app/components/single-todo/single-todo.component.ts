@@ -3,7 +3,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 @Component({
     selector: 'app-single-todo',
     templateUrl: './single-todo.component.html',
-    styleUrls: ['./single-todo.component.css']
+    styleUrls: ['./single-todo.component.scss']
 })
 export class SingleTodoComponent implements OnInit {
     @ViewChild('editInput') editInput: ElementRef;

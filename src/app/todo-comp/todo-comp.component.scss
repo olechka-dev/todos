@@ -1,0 +1,25 @@
+
+@import "../styleConstants";
+
+.ul-todos {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 0px;
+}
+
+.footer {
+  position: relative;
+  height: 70px;
+}
+
+h1 {
+    font-weight: $thinFont;
+    font-style: italic;
+    font-size: 50px;
+}
+
+.shadow {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: $fullWidth;
+    margin: auto;
+}

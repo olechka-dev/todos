@@ -17,6 +17,7 @@ import {reducer} from './store/todos/todo.reducer';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {TodoStoreModule} from './store/module';
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({

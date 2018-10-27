@@ -11,7 +11,7 @@ import {tap} from "rxjs/operators";
 @Component({
     selector: 'app-todo-comp',
     templateUrl: './todo-comp.component.html',
-    styleUrls: ['./todo-comp.component.css']
+    styleUrls: ['./todo-comp.component.scss']
 })
 
 export class TodoCompComponent implements OnInit {
@@ -31,26 +31,22 @@ export class TodoCompComponent implements OnInit {
 
         this.todoList = this.store
             .pipe(
-                select(todosListSelector),
-                tap((_) => console.log(_))
+                select(todosListSelector)//,
+               // tap((_) => console.log(_))
             );
         this.store
             .pipe(
-                select(metadataSelector),
-                tap((_) => console.log(_))
+                select(metadataSelector)//,
+               // tap((_) => console.log(_))
             ).subscribe(metadata => this.metadata = metadata);
 
 
     }
 
     //issues:
-    // 1. Because of saving in Store only todos that match current filter ...:
-    // 1.1 Counter always shows 0 if curFilter=="COMPLETED";
-    // 1.2 Clear completed button doesn't delete anything if curFilter=="ACTIVE";
-    // 1.3 Statistics component receives only the data which matches current filter though should receive ALL;
     //
     // 2. Need to store Error and Success flags in state to show content accordingly (error message or todolist);
-    // 3. Add nice css;
+    //
     // 4. Add loading animation
 
 
