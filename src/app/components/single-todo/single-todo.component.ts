@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-single-todo',
@@ -19,11 +19,11 @@ export class SingleTodoComponent implements OnInit {
     public isHovered;
 
     constructor() {
-        this.isHovered=true;
+        this.isHovered = true;
     }
 
     ngOnInit() {
-        console.log(this.singleTodo);
+
     }
 
     completeToggle() {
@@ -36,13 +36,14 @@ export class SingleTodoComponent implements OnInit {
     }
 
     removeSingleTodo() {
-      this.onRemove.emit(this.singleTodo.id);
-      console.log(this.singleTodo.id);
+        this.onRemove.emit(this.singleTodo.id);
+        console.log(this.singleTodo.id);
     }
 
     setFocus() {
         setTimeout(() => {   //kostyl veka
-        this.editInput.nativeElement.focus()}, 0);
+            this.editInput.nativeElement.focus();
+        }, 0);
     }
 
 }

@@ -10,92 +10,56 @@ server.use(middlewares);
 
 server.use(jsonServer.bodyParser);
 
-// server.post('/todos/create', function (req, res, next) {
-//   const nameOfTask = req.body.name
-//   const idOfTask = +(new Date())
-//   req.body = {"id": idOfTask, "completed": false, "name": nameOfTask}
-//   console.log(req)
-//   setTimeout(function () {
-//     next()
-//   }, 800)
-// });
-//
-// server.put('/todos/update', function (req, res, next) {
-// //  req.url = '/todos/'+req.body.id
-//   const fieldsToUpdate = {}
-//   if (req.body.completed !== undefined) {
-//     fieldsToUpdate.completed = req.body.completed
-//   }
-//   if (req.body.name) {
-//     fieldsToUpdate.name = req.body.name
-//   }
-//   const db = router.db;
-//   const t = db.get('todos').updateById(req.body.id, fieldsToUpdate).write()
-//   console.log(t);
-//   setTimeout(function () {
-//     res.json({"id": req.body.id})
-//   }, 500)
-// });
-//
-// server.delete('/todos/delete', function (req, res, next) {
-//   req.url = '/todos/' + req.body.id
-//   setTimeout(function () {
-//     next()
-//   }, 400)
-// })
-//
-server.get('/todos', function(req, res, next) {
-    const db = router.db
-    var filter = {};
-    if(req.query.completed=="true") {
+server.get('/todos', function (req, res, next) {
+    const db = router.db;
+    let filter = {};
+    if (req.query.completed === 'true') {
         filter = Object.assign(filter, {completed: true})
     }
-    if(req.query.completed=="false") {
-        filter = Object.assign(filter, {completed: false})
-    }
-    var results = db.get('todos').filter(filter).value();
 
-    var completedCount = db.get('todos').filter({completed:true}).size().value();
-    var notCompletedCount = db.get('todos').filter({completed:false}).size().value();
-    var allCount = db.get('todos').size().value();
+    let results = db.get('todos').filter(filter).value();
 
-    var metadata = {
+    let completedCount = db.get('todos').filter({completed: true}).size().value();
+    let notCompletedCount = db.get('todos').filter({completed: false}).size().value();
+    let allCount = db.get('todos').size().value();
+
+    let metadata = {
         completed: completedCount,
         active: notCompletedCount,
         all: allCount
-    }
+    };
 
-    var response = {
+    let response = {
         results: results,
         metadata: metadata
-    }
+    };
     console.log(metadata);
     res.json(response);
-})
+});
 
 server.delete('/todos/deleteCompleted', function (req, res, next) {
-  const db = router.db
-  const t = db.get('todos').remove({completed: true}).write()
-  const r = db.get('todos').value()
+    const db = router.db;
+    const t = db.get('todos').remove({completed: true}).write();
+    const r = db.get('todos').value();
 
-  setTimeout(function () {
-    res.json(r)
-  }, 600)
-})
+    setTimeout(function () {
+        res.json(r)
+    }, 600)
+});
 
 server.post('/todos/delete-many', function (req, res, next) {
-  const ids = req.body.ids;
+    const ids = req.body.ids;
 
-  const db = router.db;
-  for (let id of ids) {
-    db.get('todos').remove({id: id}).write();
-  }
+    const db = router.db;
+    for (let id of ids) {
+        db.get('todos').remove({id: id}).write();
+    }
 
-  const r = db.get('todos').value();
+    const r = db.get('todos').value();
 
-  setTimeout(function () {
-    res.json(r)
-  }, 600)
+    setTimeout(function () {
+        res.json(r)
+    }, 600)
 });
 
 // server.use(jsonServer.rewriter({
@@ -103,7 +67,7 @@ server.post('/todos/delete-many', function (req, res, next) {
 //   '/todos/create': '/todos'
 // }))
 
-server.use(router)
+server.use(router);
 server.listen(3000, function () {
-  console.log('JSON Server is running')
+    console.log('JSON Server is running')
 });

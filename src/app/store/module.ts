@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './index';
 import {TodosEffects} from './todos/todo.effects';

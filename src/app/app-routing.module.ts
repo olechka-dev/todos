@@ -1,16 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TodoStatisticsComponent } from './todo-statistics/todo-statistics.component';
-import { TodoCompComponent } from './todo-comp/todo-comp.component';
+import { PermissionsGuardService } from './utils/permissions/permissions-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/list', pathMatch: 'full' },
-  { path: 'list', component: TodoCompComponent },
-  { path: 'stat', component: TodoStatisticsComponent }
+    {
+        path: '',
+        redirectTo: '/list',
+        pathMatch: 'full'
+    },
+    {
+        path: 'list',
+        loadChildren: 'src/app/todo-comp/todo-comp.module#TodoCompModule'
+    },
+    {
+        path: 'stat',
+        component: TodoStatisticsComponent,
+        canActivate: [
+            PermissionsGuardService
+        ],
+        data: {
+            permission: 'stats_read'
+        },
+    }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

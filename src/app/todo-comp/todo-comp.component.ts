@@ -6,7 +6,7 @@ import {AppState, metadataSelector, todosListSelector} from '../store';
 import * as FilterActions from '../store/filter/actions';
 
 import * as TodoActions from '../store/todos/todo.actions';
-import {tap} from "rxjs/operators";
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-todo-comp',
@@ -43,7 +43,7 @@ export class TodoCompComponent implements OnInit {
 
     }
 
-    //issues:
+    // issues:
     // 1. Because of saving in Store only todos that match current filter ...:
     // 1.1 Counter always shows 0 if curFilter=="COMPLETED";
     // 1.2 Clear completed button doesn't delete anything if curFilter=="ACTIVE";
@@ -53,7 +53,7 @@ export class TodoCompComponent implements OnInit {
     // 3. Add nice css;
     // 4. Add loading animation
 
-
+    // @Permissions('experts_MAin')
     updateCurFilter(filter) {
         this.store.dispatch(new FilterActions.UpdateFilter(filter));
     }
