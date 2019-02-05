@@ -1,39 +1,14 @@
 {
   "todos": [
     {
-      "name": "fsdfsd",
-      "completed": true,
-      "id": 9
-    },
-    {
-      "name": "fdfslk",
-      "completed": true,
-      "id": 10
-    },
-    {
-      "name": "sdsdf",
-      "completed": true,
-      "id": 11
-    },
-    {
-      "name": "sdfsdf",
-      "completed": true,
-      "id": 12
-    },
-    {
-      "name": "sdfsdfsdf",
-      "completed": true,
-      "id": 13
-    },
-    {
-      "name": "sdfsdfsdf",
+      "name": "Task 1",
       "completed": false,
-      "id": 14
+      "id": 1
     },
     {
-      "name": "sdfsf",
-      "completed": false,
-      "id": 15
+      "name": "Task 2",
+      "completed": true,
+      "id": 2
     }
   ]
 }

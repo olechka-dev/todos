@@ -19,7 +19,6 @@ export function Permissions(required) {
                     take(1)
                 )
                 .subscribe((_p) => {
-                    console.log('PERMISS', _p);
                     userPerms = _p ? _p : {};
                 });
 
@@ -27,7 +26,7 @@ export function Permissions(required) {
             if (isPermitted) {
                 originalFunction.apply(this, args);
             } else {
-                alert('you have no permissions \n [PERMISSIONS DECORATOR]');
+                alert('PERMISSIONS DECORATOR says \n you have no permissions');
             }
 
         };

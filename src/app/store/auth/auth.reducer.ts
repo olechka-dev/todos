@@ -1,16 +1,8 @@
 const initialState = {
     todos: {
-        create: '*',
         read: '*',
-        update: '*',
-        // delete: '*'
-    },
-    stats: {
-        create: '*',
-        read: '*',
-        update: '*',
-        delete: '*'
-    },
+        update: '*'
+    }
 };
 
 export function userPermissionsReducer(state = initialState, action) {

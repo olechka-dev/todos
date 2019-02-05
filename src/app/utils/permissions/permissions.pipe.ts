@@ -13,7 +13,6 @@ export class PermissionsPipe implements PipeTransform {
     }
 
     transform(required: any, args?: any): any {
-        console.log(required);
         const isPermitted = checkPermissions(required, this.getPermissions());
 
         if (isPermitted) {

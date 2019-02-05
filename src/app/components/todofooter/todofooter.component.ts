@@ -13,7 +13,7 @@ export class TodofooterComponent implements OnInit {
     @Input() curFilter;
 
 
-    @Output('onDeleteCompleted') onDeleteCompleted = new EventEmitter();
+    @Output('deleteCompleted') onDeleteCompleted = new EventEmitter();
     @Output('onFilterSelected') onFilterSelected = new EventEmitter();
 
     constructor() {

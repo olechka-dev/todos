@@ -17,11 +17,6 @@ export class PermissionsDirective {
         this._required = permission;
         this._viewRef = null;
         this.init();
-
-    }
-
-    get appPermissions() {
-        return this._required;
     }
 
     constructor(private store: Store<any>,
@@ -36,7 +31,7 @@ export class PermissionsDirective {
         if (isPermitted) {
             this._viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
         } else {
-            console.log('[PERMISSIONS DIRECTIVE] You don\'t have permissions');
+            console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
         }
     }
 
@@ -48,6 +43,4 @@ export class PermissionsDirective {
             .subscribe((_p) => perms = _p);
         return perms;
     }
-
-
 }

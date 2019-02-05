@@ -21,7 +21,7 @@ export class PermissionsGuardService implements CanActivate {
         const isPermitted = checkPermissions(required, userPerms);
 
         if (!isPermitted) {
-            alert('You don\'t have permissions');
+            alert('ROUTE GUARD SAYS: \n You don\'t have permissions to see this page');
         }
 
         return isPermitted;
